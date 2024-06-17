@@ -1,6 +1,6 @@
-const Button = ({ onHandleClick: handleVisAddFriend, children }) => {
+const Button = ({ onClick, children }) => {
   return (
-    <button className='button' onClick={handleVisAddFriend}>
+    <button className='button' onClick={onClick}>
       {children}
     </button>
   );

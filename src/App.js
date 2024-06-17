@@ -8,23 +8,32 @@ import SplitTheBill from './components/forms/SplitTheBill';
 const App = () => {
   const [friends, setFriends] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
-  const handleVisAddFriend = () => {
-    setIsClicked(isClicked => !isClicked);
+  const handleSelection = friend => {
+    setSelectedFriend(f => (f?.id === friend.id ? null : friend));
+    setIsClicked(false);
   };
+  const handleVisAddFriend = () => setIsClicked(isClicked => !isClicked);
 
   return (
     <div className='app'>
       <div className='sidebar'>
-        <FriendList friends={friends} />
+        <FriendList
+          onSelection={handleSelection}
+          selectedFriend={selectedFriend}
+          friends={friends}
+        />
         {isClicked && <AddFriend setFriends={setFriends} />}
 
-        <Button onHandleClick={handleVisAddFriend}>
+        <Button onClick={handleVisAddFriend}>
           {isClicked ? 'Close' : 'Add Friend'}
         </Button>
       </div>
 
-      <SplitTheBill />
+      {selectedFriend && (
+        <SplitTheBill friend={selectedFriend} setFriends={setFriends} />
+      )}
     </div>
   );
 };

@@ -22,7 +22,6 @@ const AddFriend = ({ setFriends }) => {
       balance: 0,
     };
 
-    console.log(friend);
     setFriends(friends => [...friends, friend]);
 
     setName('');

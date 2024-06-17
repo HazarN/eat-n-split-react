@@ -1,23 +1,60 @@
+import { useState } from 'react';
+
 import Button from '../Button';
 
-const SplitTheBill = () => {
+const SplitTheBill = ({ friend, setFriends }) => {
+  const [bill, setBill] = useState(0);
+  const [userExpense, setUserExpense] = useState(0);
+  const [whoIsPaying, setWhoIsPaying] = useState('you');
+
+  const friendExpense = bill - userExpense;
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (!bill || !userExpense) return;
+
+    const value = whoIsPaying === 'you' ? friendExpense : -userExpense;
+
+    setFriends(friends =>
+      friends.map(f =>
+        f.id === friend?.id ? { ...f, balance: f.balance + value } : friend
+      )
+    );
+  };
+
   return (
-    <form className='form-split-bill'>
-      <h2>Split a bill with FRIEND_NAME_HERE</h2>
+    <form className='form-split-bill' onSubmit={handleSubmit}>
+      <h2>Split a bill with {friend.name}</h2>
 
       <label>💵 Bill value </label>
-      <input type='text' />
+      <input
+        type='text'
+        value={bill}
+        onChange={e => Number(setBill(e.target.value))}
+      />
 
       <label>🧑 Your expense </label>
-      <input type='text' />
+      <input
+        type='text'
+        value={userExpense}
+        onChange={e =>
+          Number(e.target.value) > bill
+            ? userExpense
+            : setUserExpense(Number(e.target.value))
+        }
+      />
 
-      <label>👯‍♀️ FRIEND_NAME's expense </label>
-      <input type='text' disabled />
+      <label>👯‍♀️ {friend.name}'s expense </label>
+      <input type='text' disabled value={userExpense && friendExpense} />
 
       <label>🤑 Who is paying the bill</label>
-      <select>
+      <select
+        value={whoIsPaying}
+        onChange={e => setWhoIsPaying(e.currentTarget.value)}
+      >
         <option value='you'>You</option>
-        <option value='friend'>FRIEND_NAME</option>
+        <option value='friend'>{friend.name}</option>
       </select>
 
       <Button>Split the bill</Button>
