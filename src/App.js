@@ -32,7 +32,11 @@ const App = () => {
       </div>
 
       {selectedFriend && (
-        <SplitTheBill friend={selectedFriend} setFriends={setFriends} />
+        <SplitTheBill
+          selectedFriend={selectedFriend}
+          setSelectedFriend={setSelectedFriend}
+          setFriends={setFriends}
+        />
       )}
     </div>
   );
