@@ -18,7 +18,7 @@ const SplitTheBill = ({ friend, setFriends }) => {
 
     setFriends(friends =>
       friends.map(f =>
-        f.id === friend?.id ? { ...f, balance: f.balance + value } : friend
+        f.id === friend?.id ? { ...f, balance: f.balance + value } : f
       )
     );
   };
