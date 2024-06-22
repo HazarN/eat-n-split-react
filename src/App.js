@@ -33,6 +33,7 @@ const App = () => {
 
       {selectedFriend && (
         <SplitTheBill
+          key={selectedFriend.id}
           selectedFriend={selectedFriend}
           setSelectedFriend={setSelectedFriend}
           setFriends={setFriends}

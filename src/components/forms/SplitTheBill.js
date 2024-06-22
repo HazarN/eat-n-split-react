@@ -21,8 +21,6 @@ const SplitTheBill = ({ selectedFriend, setSelectedFriend, setFriends }) => {
         f.id === selectedFriend?.id ? { ...f, balance: f.balance + value } : f
       )
     );
-
-    setSelectedFriend(null);
   };
 
   return (
